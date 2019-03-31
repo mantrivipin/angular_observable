@@ -1,10 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { UserService } from './user.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'observable-demo';
+export class AppComponent implements OnInit {
+  user1Activated: Boolean = false;
+  user2Activated: Boolean = false;
+  
+  constructor(private userService: UserService) {
+
+  }
+
+  ngOnInit() {
+    this.userService.userActivate.subscribe(
+      (id: Number) => {
+        if(id === 1) {
+          this.user1Activated = true;
+        } else if (id === 2) {
+          this.user2Activated = true;
+        }
+      }
+    );
+  }
 }
